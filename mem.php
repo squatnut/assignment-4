@@ -1,18 +1,15 @@
 <?php
 
 include "persistence_interface.php";
-include "domain_interface.php";
 
 class Mem implements PersistenceInterface {
     private $type; //type of object
     private $prototype;
-    private $search;
     protected $buf;
 
-    public function __construct($item, $searchFunc) {
+    public function __construct($item) {
         $this->type = gettype($item);
         $this->prototype = $item;
-        $this->search = $searchFunc
         $this->buf[$item->Asin] = $item;
     }
 
@@ -25,8 +22,8 @@ class Mem implements PersistenceInterface {
     }
 
     public function Read($id) {
-        $target = $this->searchFunc($id, $this->buf);
-        return $target;
+//        $target = $this->searchFunc($id, $this->buf);
+        return $this->buf[$id];
     }
 
     public function ReadAll() {

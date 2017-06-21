@@ -43,7 +43,5 @@ class DvdTitle {
     public function Title() {
         return $this->title;
     }
-
-    public function Search(....) {}
 }
 
