@@ -61,3 +61,35 @@ function ActorfListFromDatabase() {
     }
 
 }
+
+//function TitleActorfInsertToDatabase($asin, actorID) {
+  //  $myDB = fConnectToDatabase();
+    //$sql = "INSERT INTO dvdtitles (asin, title, price) VALUES ('$asin', '$title', $price)";
+    //$result = $myDB->prepare($sql);
+ //$result->execute();
+//}
+
+//function TitleActorfDeleteFromDatabase($asin) {
+  //  $myDB = fConnectToDatabase();
+    //$sql = "DELETE FROM dvdtitles WHERE asin='$asin'";
+   // $result = $myDB->prepare($sql);
+   // $result->execute();
+
+//}
+
+
+function JoinTitleActorListFromDatabase(){
+    $myDB = fconnectToDatabase();
+    $sql = "SELECT d.asin, d.title, d.price , a.actorID, a.fname, a.lname
+from dvdtitles d, titleActor ta, dvdActors a
+where ta.asin = d.asin and ta.actorID = a.actorID ";
+    $result = $myDB->prepare($sql);
+    $result->execute();
+
+    $set = $result->fetchAll();
+
+    foreach($set as $i=>$link ) {
+        echo " <br> " . "<img src=http://images.amazon.com/images/P/" . $link['asin'] . ".01.MZZZZZZZ.jpg />" . "<br>" . "ASIN: " . $link["asin"] . "<br>" . "TITLE: " . $link["title"] . "<br>" . "ACTOR ID: " . $link["actorID"] . "<br>" . "ACTORS: " . $link["fname"] . " " . $link["lname"] . "<br>" . "DVD PRICE: $" . $link["price"] ;
+        echo "<br>";
+    }
+}
